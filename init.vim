@@ -27,6 +27,7 @@ Plug 'janko-m/vim-test'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-fugitive'
 Plug 'pangloss/vim-javascript'
+Plug 'elmcast/elm-vim'
 Plug 'mxw/vim-jsx'
 Plug 'matze/vim-move'
 Plug 'carlitux/deoplete-ternjs'
@@ -38,6 +39,8 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'css', 'json', 'scss'] }
+Plug 'rainerborene/vim-reek'
+let g:reek_on_loading = 0
 
 if has('nvim')
   function! DoRemote(arg)
@@ -52,6 +55,9 @@ noremap <silent> <F4> :let @+=expand("%:p")<CR>
 noremap <Leader>m :NERDTreeToggle<CR>
 noremap <Leader>f :FZF<CR>
 noremap <Leader>a :Ag<CR>
+" Move around error
+noremap <Leader>n :lnext<CR>
+noremap <Leader>p :lprev<CR>
 " Save file & trim trailing lines
 noremap <leader>w :w<cr>
 " Quit
@@ -63,7 +69,24 @@ noremap <leader>h <C-w>h<cr>
 noremap <leader>l <C-w>l<cr>
 "Start -- My config
 nnoremap cp :let @* = expand("%")<CR>
+nnoremap ct :let @* = expand("%:t")<CR>
+nnoremap ch :let @* = expand("%:p:h")<CR>
 nnoremap cP :let @* = expand("%:p")<CR>
+nnoremap c~ :let @* = expand("%:p")<CR>
+
+" Reveal current folder
+function! RevealCurrentFolder()
+  call system("open '" . expand("%:p:h") . "'")
+endfunction
+nnoremap <leader>~ :call RevealCurrentFolder()<cr>
+
+" Git
+
+noremap <leader>gs :Gstatus<cr>
+noremap <leader>gb :Gblame<cr>
+noremap <leader>gc :Gcommit<cr>
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk
 "End -- My config
 map <leader>r :NERDTreeFind<cr>
 inoremap jj <ESC>
@@ -97,6 +120,7 @@ set noswapfile
 set visualbell
 set noerrorbells
 set guifont=DroidSansMonoPLNerd:h12
+
 set synmaxcol=128
 set lazyredraw
 set foldmethod=indent
@@ -128,10 +152,11 @@ let test#javascript#runner = 'jest'
 "========================================================
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_javascript_eslint_exe = $PWD .'/node_modules/.bin/eslint'
+let g:javascript_plugin_flow = 1
 
 let g:neomake_ruby_enabled_makers = ['rubocop']
-"let g:neomake_error_sign = {'text': '💧', 'texthl': 'NeomakeWarningMsg'}
-"let g:neomake_warning_sign = {'text': '💧', 'texthl': 'NeomakeErrorMsg'}
+" let g:neomake_error_sign = {'text': '💧', 'texthl': 'NeomakeWarningMsg'}
+" let g:neomake_warning_sign = {'text': '💧', 'texthl': 'NeomakeErrorMsg'}
 "========================================================
 " CONFIG AIRLINE THEME
 "========================================================
@@ -190,3 +215,4 @@ nnoremap <leader>l :call NumberToggle()<cr>
 " Prettier
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.jsx,*.css,*.scss,*.less Prettier
+
