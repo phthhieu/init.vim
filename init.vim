@@ -41,6 +41,7 @@ Plug 'prettier/vim-prettier', {
   \ 'for': ['javascript', 'css', 'json', 'scss'] }
 Plug 'rainerborene/vim-reek'
 let g:reek_on_loading = 0
+Plug 'ap/vim-css-color'
 
 if has('nvim')
   function! DoRemote(arg)
@@ -52,9 +53,12 @@ call plug#end()
 nnoremap <Esc> :noh<CR><Esc>
 let mapleader=" "
 noremap <silent> <F4> :let @+=expand("%:p")<CR>
-noremap <Leader>m :NERDTreeToggle<CR>
+noremap <silent><Leader>m :NERDTreeToggle<CR>
 noremap <Leader>f :FZF<CR>
-noremap <Leader>a :Ag<CR>
+noremap <Leader>a :Ag <CR>
+nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
+nmap <silent> <tab> <Plug>(easymotion-overwin-w)
+
 " Move around error
 noremap <Leader>n :lnext<CR>
 noremap <Leader>p :lprev<CR>
@@ -69,10 +73,7 @@ noremap <leader>h <C-w>h<cr>
 noremap <leader>l <C-w>l<cr>
 "Start -- My config
 nnoremap cp :let @* = expand("%")<CR>
-nnoremap ct :let @* = expand("%:t")<CR>
-nnoremap ch :let @* = expand("%:p:h")<CR>
 nnoremap cP :let @* = expand("%:p")<CR>
-nnoremap c~ :let @* = expand("%:p")<CR>
 
 " Reveal current folder
 function! RevealCurrentFolder()
@@ -104,7 +105,9 @@ autocmd! BufWritePost,BufEnter * Neomake
 syntax enable
 syntax on
 filetype plugin indent on
-colorscheme srcery
+" colorscheme srcery
+colorscheme neodark_custom
+
 set clipboard =unnamed
 set autoread
 set background=dark
@@ -146,7 +149,7 @@ map <Leader>tt :TestFile<CR>
 map <Leader>ts :TestNearest<CR>
 map <Leader>tl :TestLast<CR>
 map <Leader>ta :TestSuite<CR>
-let test#javascript#runner = 'jest'
+
 "========================================================
 " CONFIG NEOMAKE
 "========================================================
