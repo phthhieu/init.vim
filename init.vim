@@ -95,18 +95,18 @@ inoremap jj <ESC>
 autocmd! BufWritePost .config/nvim/init.vim source %
 autocmd BufWritePre * StripWhitespace
 
-if (has('termguicolors') && $TERM_PROGRAM ==# 'iTerm.app' && $TERM !~# '^\%(screen\|tmux\)')
-    set termguicolors
-  else
-    set notermguicolors
-  endif
+set termguicolors
+" if (has('termguicolors') && $TERM_PROGRAM ==# 'iTerm.app' && $TERM !~# '^\%(screen\|tmux\)')
+"   else
+"     " set notermguicolors
+"   endif
 autocmd! BufWritePost,BufEnter * Neomake
 "Remove all trailing whitespace by pressing F5
 syntax enable
 syntax on
 filetype plugin indent on
-" colorscheme srcery
-colorscheme neodark_custom
+colorscheme srcery
+" colorscheme neodark_custom
 
 set clipboard =unnamed
 set autoread
