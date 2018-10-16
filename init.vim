@@ -43,6 +43,16 @@ Plug 'rainerborene/vim-reek'
 let g:reek_on_loading = 0
 Plug 'ap/vim-css-color'
 
+Plug 'kyuhi/vim-emoji-complete'
+" Plug 'autozimu/LanguageClient-neovim', {
+"     \ 'branch': 'next',
+"     \ 'do': 'bash install.sh',
+"     \ }
+"
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+" nmap <silent> <tab> <Plug>(easymotion-overwin-w)
+
 if has('nvim')
   function! DoRemote(arg)
     UpdateRemotePlugins
@@ -57,7 +67,6 @@ noremap <silent><Leader>m :NERDTreeToggle<CR>
 noremap <Leader>f :FZF<CR>
 noremap <Leader>a :Ag <CR>
 nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
-nmap <silent> <tab> <Plug>(easymotion-overwin-w)
 
 " Move around error
 noremap <Leader>n :lnext<CR>
@@ -214,6 +223,8 @@ endfunc
 
 " Toggle between normal and relative numbering.
 nnoremap <leader>l :call NumberToggle()<cr>
+" Set relative line by default
+set rnu
 
 " Prettier
 let g:prettier#autoformat = 0
