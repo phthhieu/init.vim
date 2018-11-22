@@ -44,12 +44,14 @@ let g:reek_on_loading = 0
 Plug 'ap/vim-css-color'
 
 Plug 'kyuhi/vim-emoji-complete'
-" Plug 'autozimu/LanguageClient-neovim', {
-"     \ 'branch': 'next',
-"     \ 'do': 'bash install.sh',
-"     \ }
-"
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+
+Plug 'mhinz/vim-startify'
+let g:startify_change_to_dir = 0
 
 " nmap <silent> <tab> <Plug>(easymotion-overwin-w)
 
@@ -99,7 +101,9 @@ nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
 "End -- My config
 map <leader>r :NERDTreeFind<cr>
+
 inoremap jj <ESC>
+inoremap jk <ESC>
 
 autocmd! BufWritePost .config/nvim/init.vim source %
 autocmd BufWritePre * StripWhitespace
@@ -115,7 +119,6 @@ syntax enable
 syntax on
 filetype plugin indent on
 colorscheme srcery
-" colorscheme neodark_custom
 
 set clipboard =unnamed
 set autoread
@@ -230,3 +233,18 @@ set rnu
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.jsx,*.css,*.scss,*.less Prettier
 
+" Required for operations modifying multiple buffers like rename.
+set hidden
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+    \ 'python': ['/usr/local/bin/pyls'],
+    \ }
+
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" Or map each action separately
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
