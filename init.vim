@@ -5,19 +5,15 @@ Plug 'vim-airline/vim-airline'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'easymotion/vim-easymotion'
-Plug 'airblade/vim-gitgutter'
 Plug 'kassio/neoterm'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'mhartington/oceanic-next'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'tomtom/tcomment_vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'tpope/vim-rails'
 Plug 'flazz/vim-colorschemes'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'tpope/vim-obsession'
 Plug 'jiangmiao/auto-pairs'
 Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-surround'
@@ -27,23 +23,18 @@ Plug 'janko-m/vim-test'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-fugitive'
 Plug 'pangloss/vim-javascript'
-Plug 'elmcast/elm-vim'
 Plug 'mxw/vim-jsx'
 Plug 'matze/vim-move'
 Plug 'carlitux/deoplete-ternjs'
 Plug 'ryanoasis/vim-devicons'
-Plug 'tpope/vim-bundler'
-Plug 'vim-scripts/VimClojure'
 Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'ludovicchabant/vim-gutentags'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'css', 'json', 'scss'] }
-Plug 'rainerborene/vim-reek'
-let g:reek_on_loading = 0
 Plug 'ap/vim-css-color'
 
 Plug 'kyuhi/vim-emoji-complete'
+Plug 'mhinz/vim-signify'
 
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
@@ -96,7 +87,8 @@ nnoremap <leader>~ :call RevealCurrentFolder()<cr>
 
 noremap <leader>gs :Gstatus<cr>
 noremap <leader>gb :Gblame<cr>
-noremap <leader>gc :Gcommit<cr>
+noremap <leader>gb :Gblame<cr>
+noremap <leader>gd :Gdiff<cr>
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
 "End -- My config
@@ -182,11 +174,6 @@ let g:move_key_modifier= 'C'
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
-" Update ruby ctags
-function! URT()
-  return system('ctags -R --languages=ruby --exclude=.git --exclude=log . $(bundle list --paths)')
-endfunction
-map <silent> <leader>urt <ESC>:call URT()<CR>
 map <c-]> <ESC>:call fzf#vim#tags(expand("<cword>"), fzf#vim#layout(expand("<bang>0")))<cr>
 let g:airline_powerline_fonts = 1
 let g:airline_left_sep = '⭔'
