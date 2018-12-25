@@ -69,7 +69,9 @@ noremap <leader>w :w<cr>
 " Quit
 noremap <leader>q :q<cr>
 " Split screen
-noremap <leader>s <C-w>v<C-w>l<cr>
+noremap <leader>s :vsplit<cr>
+" Split screen horizontal
+noremap <leader>v :split<cr>
 " Move screen
 noremap <leader>h <C-w>h<cr>
 noremap <leader>l <C-w>l<cr>
