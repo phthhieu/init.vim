@@ -77,7 +77,7 @@ nnoremap cp :let @* = expand("%")<CR>
 nnoremap cP :let @* = expand("%:p")<CR>
 
 " Highlight all file content
-map <C-a> <esc> ggVG<cr>
+nnoremap <C-a> <esc> ggVG<cr>
 
 " Git
 noremap <Leader>gs :Gstatus<cr>
