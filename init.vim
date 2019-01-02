@@ -70,6 +70,12 @@ noremap <Leader>x :x<cr>
 noremap <leader>s :vsplit<cr>
 noremap <leader>v :split<cr>
 
+" Move between tabs quicklier
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
 " Resize screen
 noremap <leader>= :vertical resize +20<cr>
 noremap <leader>- :vertical resize -20<cr>
