@@ -33,6 +33,7 @@ Plug 'galooshi/vim-import-js'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'css', 'json', 'scss'] }
+Plug 'jiangmiao/auto-pairs'
 
 " Save vim session
 Plug 'tpope/vim-obsession'
