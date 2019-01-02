@@ -49,7 +49,6 @@ endif
 call plug#end()
 
 nnoremap <Esc> :noh<CR><Esc>
-
 "========================================================
 " Leader config
 "========================================================
@@ -57,17 +56,20 @@ let mapleader=" "
 noremap <silent><Leader>m :NERDTreeToggle<CR>
 map <Leader>r :NERDTreeFind<cr>
 
+" Searching
 noremap <Leader>f :FZF<CR>
 noremap <Leader>a :Ag <CR>
 noremap <Leader>a :Ag <CR>
 nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
 
+" Quick saving / edit
 noremap <Leader>w :w<cr>
 noremap <Leader>q :xa<cr>
 noremap <Leader>x :x<cr>
 " Split screen
 noremap <leader>s :vsplit<cr>
 noremap <leader>v :split<cr>
+
 " Resize screen
 noremap <leader>= :vertical resize +20<cr>
 noremap <leader>- :vertical resize -20<cr>
@@ -84,18 +86,24 @@ noremap <Leader>gs :Gstatus<cr>
 noremap <Leader>gb :Gblame<cr>
 noremap <Leader>gd :Gdiff<cr>
 
+" Easy jump
+map  <Leader>j <Plug>(easymotion-bd-w)
+nmap <Leader>j <Plug>(easymotion-overwin-w)
+
 " Quick escape
 inoremap jk <ESC>
+inoremap kj <ESC>
 
 autocmd! BufWritePost .config/nvim/init.vim source %
 autocmd BufWritePre * StripWhitespace
 
-set termguicolors
 syntax enable
 syntax on
+syntax sync minlines=256
 filetype plugin indent on
 colorscheme srcery
 
+set termguicolors
 set clipboard =unnamed
 set autoindent " Copy indent from current line when starting a new line
 set smarttab
@@ -109,11 +117,7 @@ set foldmethod=indent
 set foldnestmax=10
 set nofoldenable
 set foldlevel=2
-
-syntax sync minlines=256
-
-let g:NERDTreeLimitedSyntax = 1
-let g:NERDTreeHighlightCursorline = 0
+set rnu
 
 " Config deoplete
 let g:deoplete#enable_at_startup = 1
@@ -123,9 +127,6 @@ let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 " AleFix
 let b:ale_fixers = ['prettier', 'eslint']
 let g:ale_fix_on_save = 1
-
-" Set relative line by default
-set rnu
 
 " Prettier
 let g:prettier#autoformat = 0
