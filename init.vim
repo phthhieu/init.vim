@@ -17,7 +17,6 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'jiangmiao/auto-pairs'
 Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-surround'
-Plug 'neomake/neomake'
 Plug 'tpope/vim-endwise'
 Plug 'janko-m/vim-test'
 Plug 'junegunn/vim-easy-align'
@@ -37,6 +36,7 @@ Plug 'tpope/vim-obsession'
 Plug 'dhruvasagar/vim-prosession'
 " Require npm install --global import-js
 Plug 'galooshi/vim-import-js'
+Plug 'w0rp/ale'
 
 if has('nvim')
   function! DoRemote(arg)
@@ -98,7 +98,6 @@ autocmd! BufWritePost .config/nvim/init.vim source %
 autocmd BufWritePre * StripWhitespace
 
 set termguicolors
-autocmd! BufWritePost,BufEnter * Neomake
 syntax enable
 syntax on
 filetype plugin indent on
@@ -139,20 +138,6 @@ let test#strategy = "neovim"
 map <Leader>tt :TestFile<CR>
 map <Leader>ts :TestNearest<CR>
 
-" Linter error
-map <Leader>en :lnext<CR>
-map <Leader>eN :lprevious<CR>
-
-"========================================================
-" CONFIG NEOMAKE
-"========================================================
-let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_javascript_eslint_exe = $PWD .'/node_modules/.bin/eslint'
-let g:javascript_plugin_flow = 1
-
-let g:neomake_ruby_enabled_makers = ['rubocop']
-" let g:neomake_error_sign = {'text': '💧', 'texthl': 'NeomakeWarningMsg'}
-" let g:neomake_warning_sign = {'text': '💧', 'texthl': 'NeomakeErrorMsg'}
 "========================================================
 " CONFIG AIRLINE THEME
 "========================================================
@@ -185,10 +170,11 @@ let g:vimclojure#ParenRainbow = 1
 " Config deoplete
 let g:deoplete#enable_at_startup = 1
 
-" Config js stuff
-let g:neomake_open_list=0
-let g:neomake_jsx_enabled_makers = ['eslint']
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+
+" AleFix
+let b:ale_fixers = ['prettier', 'eslint']
+let g:ale_fix_on_save = 1
 
 " Relative numbering
 function! NumberToggle()
