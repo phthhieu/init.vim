@@ -139,6 +139,10 @@ let test#strategy = "neovim"
 map <Leader>tt :TestFile<CR>
 map <Leader>ts :TestNearest<CR>
 
+" Linter error
+map <Leader>en :lnext<CR>
+map <Leader>eN :lprevious<CR>
+
 "========================================================
 " CONFIG NEOMAKE
 "========================================================
