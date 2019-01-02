@@ -90,6 +90,9 @@ noremap <Leader>gd :Gdiff<cr>
 map  <Leader>j <Plug>(easymotion-bd-w)
 nmap <Leader>j <Plug>(easymotion-overwin-w)
 
+" Import current word
+nmap <Leader>i :ImportJSWord<cr>
+
 " Quick escape
 inoremap jk <ESC>
 inoremap kj <ESC>
