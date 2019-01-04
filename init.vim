@@ -26,6 +26,7 @@ Plug 'ryanoasis/vim-devicons'
 
 " Git
 Plug 'tpope/vim-fugitive'
+Plug 'gregsexton/gitv', {'on': ['Gitv']}
 
 " Coding style
 " Require npm install --global import-js
@@ -71,8 +72,6 @@ noremap <leader>s :vsplit<cr>
 noremap <leader>v :split<cr>
 
 " Move between tabs quicklier
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
@@ -83,9 +82,6 @@ noremap <leader>- :vertical resize -20<cr>
 " Copy current file / folder path
 nnoremap cp :let @* = expand("%")<CR>
 nnoremap cP :let @* = expand("%:p")<CR>
-
-" Highlight all file content
-nnoremap <C-a> <esc> ggVG<cr>
 
 " Git
 noremap <Leader>gs :Gstatus<cr>
@@ -120,12 +116,18 @@ set tabstop=2 " Number of space og a <Tab> character
 set softtabstop=2
 set shiftwidth=2 " Number of spaces use by autoindent
 set guifont=DroidSansMonoPLNerd:h12
+set lazyredraw
 
 set synmaxcol=128
 set foldmethod=indent
 set foldnestmax=10
 set nofoldenable
 set foldlevel=2
+
+set nobackup
+set noswapfile
+
+set number
 set rnu
 
 " Config deoplete
