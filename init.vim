@@ -26,7 +26,6 @@ Plug 'ryanoasis/vim-devicons'
 
 " Git
 Plug 'tpope/vim-fugitive'
-Plug 'gregsexton/gitv', {'on': ['Gitv']}
 
 " Coding style
 " Require npm install --global import-js
@@ -46,6 +45,12 @@ if has('nvim')
   endfunction
   Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 endif
+
+" Config deoplete
+let g:deoplete#enable_at_startup = 1
+
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
 
 call plug#end()
 
@@ -102,6 +107,27 @@ inoremap kj <ESC>
 autocmd! BufWritePost .config/nvim/init.vim source %
 autocmd BufWritePre * StripWhitespace
 
+" Snippet
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+let g:neosnippet#snippets_directory='~/.config/nvim/snippets'
+" End Snippet
+
 syntax enable
 syntax on
 syntax sync minlines=256
@@ -129,9 +155,6 @@ set noswapfile
 
 set number
 set rnu
-
-" Config deoplete
-let g:deoplete#enable_at_startup = 1
 
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 

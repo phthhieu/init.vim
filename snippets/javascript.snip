@@ -1,0 +1,25 @@
+# JSX Stuff
+snippet tag
+abbr JSX tag
+  <${1:tag}>
+    ${2:content}
+  </$1>
+
+# React stuff
+snippet rsc
+abbr React stateless component
+  const ${1:Component} = (${2:props}) => (
+    ${3:content}
+  );
+
+# Jest
+snippet testsuite
+abbr New testsuite
+  import ${1:import} from '../${2:from}';
+
+  describe('${3:description}', () => {
+    it('works', () => {
+      expect().toEqual();
+    });
+  });
+
