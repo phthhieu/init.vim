@@ -40,13 +40,12 @@ Plug 'tpope/vim-obsession'
 Plug 'dhruvasagar/vim-prosession'
 
 if has('nvim')
-  function! DoRemote(arg)
-    UpdateRemotePlugins
-  endfunction
-  Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
 endif
-
-" Config deoplete
 let g:deoplete#enable_at_startup = 1
 
 Plug 'Shougo/neosnippet.vim'
