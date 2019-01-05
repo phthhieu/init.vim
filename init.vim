@@ -14,7 +14,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'ap/vim-css-color'
 Plug 'mhinz/vim-signify'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'flazz/vim-colorschemes'
+Plug 'tomasr/molokai'
 
 " Support
 Plug 'matze/vim-move'
@@ -56,22 +56,22 @@ call plug#end()
 
 nnoremap <Esc> :noh<CR><Esc>
 "========================================================
-" Leader config
+" leader config
 "========================================================
 let mapleader=" "
-noremap <silent><Leader>m :NERDTreeToggle<CR>
-map <Leader>r :NERDTreeFind<cr>
+noremap <silent><leader>m :NERDTreeToggle<CR>
+map <leader>r :NERDTreeFind<cr>
 
 " Searching
-noremap <Leader>f :FZF<CR>
-noremap <Leader>a :Ag <CR>
-noremap <Leader>a :Ag <CR>
-nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
+noremap <leader>f :FZF<CR>
+noremap <leader>a :Ag <CR>
+noremap <leader>a :Ag <CR>
+nnoremap <silent> <leader>ag :Ag <C-R><C-W><CR>
 
 " Quick saving / edit
-noremap <Leader>w :w<cr>
-noremap <Leader>q :xa<cr>
-noremap <Leader>x :x<cr>
+noremap <leader>w :w<cr>
+noremap <leader>q :xa<cr>
+noremap <leader>x :x<cr>
 " Split screen
 noremap <leader>s :vsplit<cr>
 noremap <leader>v :split<cr>
@@ -89,16 +89,16 @@ nnoremap cp :let @* = expand("%")<CR>
 nnoremap cP :let @* = expand("%:p")<CR>
 
 " Git
-noremap <Leader>gs :Gstatus<cr>
-noremap <Leader>gb :Gblame<cr>
-noremap <Leader>gd :Gdiff<cr>
+noremap <leader>gs :Gstatus<cr>
+noremap <leader>gb :Gblame<cr>
+noremap <leader>gd :Gdiff<cr>
 
 " Easy jump
-map  <Leader>j <Plug>(easymotion-bd-w)
-nmap <Leader>j <Plug>(easymotion-overwin-w)
+map  <leader>j <Plug>(easymotion-bd-w)
+nmap <leader>j <Plug>(easymotion-overwin-w)
 
 " Import current word
-nmap <Leader>i :ImportJSWord<cr>
+nmap <leader>i :ImportJSWord<cr>
 
 " Quick escape
 inoremap jk <ESC>
@@ -132,7 +132,7 @@ syntax enable
 syntax on
 syntax sync minlines=256
 filetype plugin indent on
-colorscheme srcery
+colorscheme molokai
 
 set termguicolors
 set clipboard =unnamed
