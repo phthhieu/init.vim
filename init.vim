@@ -129,6 +129,7 @@ let g:neosnippet#snippets_directory='~/.config/nvim/snippets'
 
 syntax enable
 syntax on
+set synmaxcol=128
 syntax sync minlines=256
 filetype plugin indent on
 colorscheme molokai
@@ -142,6 +143,12 @@ set softtabstop=2
 set shiftwidth=2 " Number of spaces use by autoindent
 set guifont=DroidSansMonoPLNerd:h12
 set lazyredraw
+
+"" Searching
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
 
 set synmaxcol=128
 set foldmethod=indent
