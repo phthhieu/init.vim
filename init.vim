@@ -23,6 +23,9 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-surround'
 Plug 'ryanoasis/vim-devicons'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'alvan/vim-closetag'
+Plug 'janko-m/vim-test'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -47,9 +50,6 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 let g:deoplete#enable_at_startup = 1
-
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
 
 call plug#end()
 
@@ -92,6 +92,11 @@ noremap <leader>gs :Gstatus<cr>
 noremap <leader>gb :Gblame<cr>
 noremap <leader>gd :Gdiff<cr>
 
+noremap <leader>gw :Gwrite<cr>
+noremap <leader>gc :Gcommit<cr>
+noremap <leader>gu :Gpull<cr>
+noremap <leader>gp :Gpush<cr>
+
 " Easy jump
 map  <leader>j <Plug>(easymotion-bd-w)
 nmap <leader>j <Plug>(easymotion-overwin-w)
@@ -99,33 +104,14 @@ nmap <leader>j <Plug>(easymotion-overwin-w)
 " Import current word
 nmap <leader>i :ImportJSWord<cr>
 
-" Quick escape
-inoremap jk <ESC>
-inoremap kj <ESC>
+nmap <leader>ts :TestNearest<CR>
+nmap <leader>tt :TestFile<CR>
+let test#strategy = "neovim"
+let g:closetag_filenames = '*.js,*.jsx'
+let g:move_key_modifier = 'C'
 
 autocmd! BufWritePost .config/nvim/init.vim source %
 autocmd BufWritePre * StripWhitespace
-
-" Snippet
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-"imap <expr><TAB>
-" \ pumvisible() ? "\<C-n>" :
-" \ neosnippet#expandable_or_jumpable() ?
-" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-let g:neosnippet#snippets_directory='~/.config/nvim/snippets'
-" End Snippet
 
 syntax enable
 syntax on
@@ -171,6 +157,10 @@ let g:ale_fix_on_save = 1
 " Prettier
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.jsx,*.css,*.scss,*.less Prettier
+
+" Quick escape
+inoremap jk <ESC>
+inoremap jj <ESC>
 
 " Required for operations modifying multiple buffers like rename.
 set hidden
