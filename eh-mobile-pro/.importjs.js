@@ -1,7 +1,7 @@
 module.exports = {
   sortImports: false,
   excludes: ['./**/build/**'],
-  stripFileExtensions: ['.ios.js', '.android.js'],
+  stripFileExtensions: ['.ios.js', '.android.js', '.js', '.jsx'],
   namedExports: {
     'lodash/fp': [
       'after',
@@ -312,5 +312,6 @@ module.exports = {
       'first',
     ],
     reselect: ['createSelector'],
+    'redux-form': ['Field', 'reduxForm'],
   },
 };

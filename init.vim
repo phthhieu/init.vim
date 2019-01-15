@@ -110,6 +110,9 @@ let test#strategy = "neovim"
 let g:closetag_filenames = '*.js,*.jsx'
 let g:move_key_modifier = 'C'
 
+nmap <leader>ej :ALENext<cr>
+nmap <leader>ek :ALEPrevious<cr>
+
 autocmd! BufWritePost .config/nvim/init.vim source %
 autocmd BufWritePre * StripWhitespace
 
