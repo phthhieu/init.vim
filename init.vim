@@ -16,6 +16,12 @@ Plug 'mhinz/vim-signify'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'robertmeta/nofrils'
 
+Plug 'reasonml-editor/vim-reason-plus'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+
 " Support
 Plug 'matze/vim-move'
 Plug 'easymotion/vim-easymotion'
@@ -52,7 +58,12 @@ endif
 
 call plug#end()
 
+let g:LanguageClient_serverCommands = {
+    \ 'reason': ['~/.config/nvim/reason-language-server.exe'],
+    \ }
+
 let g:deoplete#enable_at_startup = 1
+
 nnoremap <Esc> :noh<CR><Esc>
 "========================================================
 " leader config
@@ -161,10 +172,16 @@ let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 let b:ale_fixers = ['prettier', 'eslint']
 let g:ale_fix_on_save = 1
 
+" Language client
+nnoremap <silent> gd :call LanguageClient_textDocument_definition()<cr>
+nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<cr>
+nnoremap <silent> <cr> :call LanguageClient_textDocument_hover()<cr>
+
 " Auto format
 let g:prettier#autoformat = 0
 autocmd BufWritePre * StripWhitespace
 autocmd BufWritePre *.js,*.jsx,*.css,*.scss,*.less Prettier
+autocmd BufWritePre *.re :call LanguageClient_textDocument_formatting()
 
 " Quick escape
 inoremap jk <ESC>
