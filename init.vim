@@ -14,7 +14,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'ap/vim-css-color'
 Plug 'mhinz/vim-signify'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'tomasr/molokai'
+Plug 'robertmeta/nofrils'
 
 " Support
 Plug 'matze/vim-move'
@@ -49,10 +49,10 @@ else
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
-let g:deoplete#enable_at_startup = 1
 
 call plug#end()
 
+let g:deoplete#enable_at_startup = 1
 nnoremap <Esc> :noh<CR><Esc>
 "========================================================
 " leader config
@@ -102,7 +102,15 @@ map  <leader>j <Plug>(easymotion-bd-w)
 nmap <leader>j <Plug>(easymotion-overwin-w)
 
 " Import current word
-nmap <leader>i :ImportJSWord<cr>
+nmap <leader>i :ImportJSFix<cr>
+
+" Custom nerdtree
+let g:NERDTreeSyntaxDisableDefaultExtensions = 1
+let g:NERDTreeDisableExactMatchHighlight = 1
+let g:NERDTreeDisablePatternMatchHighlight = 1
+let g:NERDTreeSyntaxEnabledExtensions = ['rb', 'js', 'html', 'haml', 'css', 'erb', 'jsx', 'scss']
+let g:NERDTreeLimitedSyntax = 1
+let g:NERDTreeHighlightCursorline = 0
 
 nmap <leader>ts :TestNearest<CR>
 nmap <leader>tt :TestFile<CR>
@@ -110,18 +118,14 @@ let test#strategy = "neovim"
 let g:closetag_filenames = '*.js,*.jsx'
 let g:move_key_modifier = 'C'
 
-nmap <leader>ej :ALENext<cr>
-nmap <leader>ek :ALEPrevious<cr>
-
-autocmd! BufWritePost .config/nvim/init.vim source %
-autocmd BufWritePre * StripWhitespace
+nmap <leader>e :ALENext<CR>
+nmap <leader>d :ALEPrevious<CR>
 
 syntax enable
 syntax on
 set synmaxcol=128
 syntax sync minlines=256
 filetype plugin indent on
-colorscheme molokai
 
 set termguicolors
 set clipboard =unnamed
@@ -132,6 +136,7 @@ set softtabstop=2
 set shiftwidth=2 " Number of spaces use by autoindent
 set guifont=DroidSansMonoPLNerd:h12
 set lazyredraw
+set expandtab
 
 "" Searching
 set hlsearch
@@ -147,7 +152,6 @@ set foldlevel=2
 
 set nobackup
 set noswapfile
-
 set number
 set rnu
 
@@ -157,8 +161,9 @@ let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 let b:ale_fixers = ['prettier', 'eslint']
 let g:ale_fix_on_save = 1
 
-" Prettier
+" Auto format
 let g:prettier#autoformat = 0
+autocmd BufWritePre * StripWhitespace
 autocmd BufWritePre *.js,*.jsx,*.css,*.scss,*.less Prettier
 
 " Quick escape
