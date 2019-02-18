@@ -66,7 +66,6 @@ let g:deoplete#enable_at_startup = 1
 
 nnoremap <Esc> :noh<CR><Esc>
 "========================================================
-" leader config
 "========================================================
 let mapleader=" "
 noremap <silent><leader>m :NERDTreeToggle<CR>
