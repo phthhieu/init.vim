@@ -13,7 +13,6 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-airline/vim-airline'
 Plug 'ap/vim-css-color'
 Plug 'mhinz/vim-signify'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'robertmeta/nofrils'
 
 Plug 'reasonml-editor/vim-reason-plus'
@@ -43,10 +42,6 @@ Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'css', 'json', 'scss'] }
 Plug 'jiangmiao/auto-pairs'
-
-" Save vim session
-Plug 'tpope/vim-obsession'
-Plug 'dhruvasagar/vim-prosession'
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -132,9 +127,8 @@ let g:move_key_modifier = 'C'
 nmap <leader>e :ALENext<CR>
 nmap <leader>d :ALEPrevious<CR>
 
-syntax enable
-syntax on
 set synmaxcol=128
+syntax on
 syntax sync minlines=256
 filetype plugin indent on
 
@@ -145,7 +139,6 @@ set smarttab
 set tabstop=2 " Number of space og a <Tab> character
 set softtabstop=2
 set shiftwidth=2 " Number of spaces use by autoindent
-set guifont=DroidSansMonoPLNerd:h12
 set lazyredraw
 set expandtab
 
@@ -186,6 +179,8 @@ autocmd BufWritePre *.re :call LanguageClient_textDocument_formatting()
 " Quick escape
 inoremap jk <ESC>
 inoremap jj <ESC>
+
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 " Required for operations modifying multiple buffers like rename.
 set hidden
