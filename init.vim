@@ -127,12 +127,8 @@ let g:move_key_modifier = 'C'
 nmap <leader>e :ALENext<CR>
 nmap <leader>d :ALEPrevious<CR>
 
-set synmaxcol=128
-syntax on
-syntax sync minlines=256
 filetype plugin indent on
 
-set termguicolors
 set clipboard =unnamed
 set autoindent " Copy indent from current line when starting a new line
 set smarttab
@@ -148,7 +144,6 @@ set incsearch
 set ignorecase
 set smartcase
 
-set synmaxcol=128
 set foldmethod=indent
 set foldnestmax=10
 set nofoldenable
@@ -181,6 +176,9 @@ inoremap jk <ESC>
 inoremap jj <ESC>
 
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+
+colorscheme nofrils-dark
+let g:nofrils_strbackgrounds=1
 
 " Required for operations modifying multiple buffers like rename.
 set hidden
