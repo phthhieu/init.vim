@@ -179,6 +179,9 @@ let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 colorscheme nofrils-dark
 let g:nofrils_strbackgrounds=1
+" Custom color for string
+hi String ctermfg=186 ctermbg=NONE cterm=NONE guifg=#e6db74 guibg=NONE gui=NONE
+hi Directory guifg=#FF0000 ctermfg=red
 
 " Required for operations modifying multiple buffers like rename.
 set hidden
