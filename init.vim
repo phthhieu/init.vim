@@ -113,7 +113,7 @@ let g:NERDTreeHighlightCursorline = 0
 nmap <leader>ts :TestNearest<CR>
 nmap <leader>tt :TestFile<CR>
 let test#strategy = "neovim"
-let g:test#javascript#jest#file_pattern = '.(test|spec)\.(js|jsx)$'
+let g:test#javascript#jest#file_pattern = '\v\.(test|spec)\.(js|jsx)$'
 let g:closetag_filenames = '*.js,*.jsx'
 let g:move_key_modifier = 'C'
 
