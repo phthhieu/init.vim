@@ -75,19 +75,11 @@ nnoremap <silent> <leader>ag :Ag <C-R><C-W><CR>
 
 " Quick saving / edit
 noremap <leader>w :w<cr>
-noremap <leader>q :xa<cr>
+noremap <leader>q :q<cr>
 noremap <leader>x :x<cr>
 " Split screen
 noremap <leader>s :vsplit<cr>
 noremap <leader>v :split<cr>
-
-" Move between tabs quicklier
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
-" Resize screen
-noremap <leader>= :vertical resize +20<cr>
-noremap <leader>- :vertical resize -20<cr>
 
 " Copy current file / folder path
 nnoremap cp :let @* = expand("%")<CR>
@@ -121,6 +113,7 @@ let g:NERDTreeHighlightCursorline = 0
 nmap <leader>ts :TestNearest<CR>
 nmap <leader>tt :TestFile<CR>
 let test#strategy = "neovim"
+let g:test#javascript#jest#file_pattern = '\v\.(test|spec)\.(js|jsx)$'
 let g:closetag_filenames = '*.js,*.jsx'
 let g:move_key_modifier = 'C'
 
@@ -163,13 +156,12 @@ let g:ale_fix_on_save = 1
 " Language client
 nnoremap <silent> gd :call LanguageClient_textDocument_definition()<cr>
 nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<cr>
-nnoremap <silent> <cr> :call LanguageClient_textDocument_hover()<cr>
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 
 " Auto format
 let g:prettier#autoformat = 0
 autocmd BufWritePre * StripWhitespace
 autocmd BufWritePre *.js,*.jsx,*.css,*.scss,*.less Prettier
-autocmd BufWritePre *.re :call LanguageClient_textDocument_formatting()
 
 " Quick escape
 inoremap jk <ESC>
