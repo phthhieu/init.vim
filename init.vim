@@ -30,12 +30,11 @@ Plug 'tpope/vim-surround'
 Plug 'ryanoasis/vim-devicons'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'alvan/vim-closetag'
-Plug 'phthhieu/vim-test'
-Plug 'tpope/vim-dispatch'
-Plug 'radenling/vim-dispatch-neovim'
+Plug 'janko-m/vim-test'
 
 " Git
 Plug 'tpope/vim-fugitive'
+Plug 'benmills/vimux'
 
 " Coding style
 " Require npm install --global import-js
@@ -114,8 +113,14 @@ let g:NERDTreeHighlightCursorline = 0
 
 nmap <leader>ts :TestNearest<CR>
 nmap <leader>tt :TestFile<CR>
-let test#strategy = "dispatch"
-let g:test#javascript#jest#executable = 'yarn test'
+
+let test#strategy = "vimux"
+let g:VimuxUseNearest = 0
+let g:test#javascript#jest#executable = 'nvm use default && yarn test'
+let g:VimuxOrientation = "h"
+map <Leader>vq :VimuxCloseRunner<CR>
+map <Leader>vz :VimuxZoomRunner<CR>
+
 let g:closetag_filenames = '*.js,*.jsx'
 let g:move_key_modifier = 'C'
 
