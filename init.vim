@@ -30,7 +30,7 @@ Plug 'tpope/vim-surround'
 Plug 'ryanoasis/vim-devicons'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'alvan/vim-closetag'
-Plug 'janko-m/vim-test'
+Plug 'phthhieu/vim-test'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -120,6 +120,7 @@ let g:test#javascript#jest#executable = 'nvm use default && yarn test'
 let g:VimuxOrientation = "h"
 map <Leader>vq :VimuxCloseRunner<CR>
 map <Leader>vz :VimuxZoomRunner<CR>
+map <Leader>vi :VimuxInspectRunner<CR>
 
 let g:closetag_filenames = '*.js,*.jsx'
 let g:move_key_modifier = 'C'
