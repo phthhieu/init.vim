@@ -52,6 +52,9 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
+" Send command to tmux
+Plug 'jpalardy/vim-slime'
+
 call plug#end()
 
 let g:LanguageClient_serverCommands = {
@@ -70,7 +73,6 @@ map <leader>r :NERDTreeFind<cr>
 
 " Searching
 noremap <leader>f :FZF<CR>
-noremap <leader>a :Ag <CR>
 noremap <leader>a :Ag <CR>
 nnoremap <silent> <leader>ag :Ag <C-R><C-W><CR>
 
@@ -128,6 +130,9 @@ let g:move_key_modifier = 'C'
 nmap <leader>e :ALENext<CR>
 nmap <leader>d :ALEPrevious<CR>
 
+let g:slime_target = "tmux"
+let g:slime_default_config = {"socket_name": "default", "target_pane": "{right-of}"}
+
 filetype plugin indent on
 
 set clipboard =unnamed
@@ -175,7 +180,7 @@ autocmd BufWritePre *.js,*.jsx,*.css,*.scss,*.less Prettier
 inoremap jk <ESC>
 inoremap jj <ESC>
 
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+" let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 colorscheme nofrils-dark
 let g:nofrils_strbackgrounds=1
