@@ -36,6 +36,9 @@ Plug 'phthhieu/vim-test'
 Plug 'tpope/vim-fugitive'
 Plug 'benmills/vimux'
 
+" Dev
+" Plug 'vim-scripts/Decho'
+
 " Coding style
 " Require npm install --global import-js
 Plug 'galooshi/vim-import-js'
@@ -115,6 +118,7 @@ let g:NERDTreeHighlightCursorline = 0
 
 nmap <leader>ts :TestNearest<CR>
 nmap <leader>tt :TestFile<CR>
+nmap <leader>tf :call ToggleSourceSpecFile()<CR>
 
 let test#strategy = "vimux"
 let g:VimuxUseNearest = 0
@@ -190,3 +194,49 @@ hi Directory ctermfg=white
 
 " Required for operations modifying multiple buffers like rename.
 set hidden
+
+" Custom Script
+
+function! GoToSourceFile() abort
+  let file = expand("%")
+  let parts = split(file, "/")
+
+  let last = parts[-1]
+  let fileName = split(last, '\.')[0]
+  let extension = split(last, '\.')[2]
+
+  let sourceFile = join(parts[:-3] + [join([fileName, extension], '.')], '/')
+  if filereadable(sourceFile)
+    execute "edit +" . "0" . " " . sourceFile
+    return
+  endif
+
+  echoerr "Source file not found"
+endfunction
+
+function! GoToSpecFile() abort
+  let file = expand("%")
+  let parts = split(file, "/")
+
+  let last = parts[-1]
+  let fileName = split(last, '\.')[0]
+  let extension = split(last, '\.')[1]
+
+  let specFile = join(parts[:-2] + ['__tests__', join([fileName, 'spec', extension], '.')], '/')
+  if filereadable(specFile)
+    execute "edit +" . "0" . " " . specFile
+    return
+  endif
+
+  echoerr "Test file not found"
+endfunction
+
+
+function! ToggleSourceSpecFile() abort
+  let file = expand("%")
+  if file =~ 'spec'
+    call GoToSourceFile()
+  else
+    call GoToSpecFile()
+  endif
+endfunction
