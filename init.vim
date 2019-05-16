@@ -167,6 +167,7 @@ set rnu
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 
 " AleFix
+let g:ale_linters = {'javascript': ['eslint', 'flow']}
 let b:ale_fixers = ['prettier', 'eslint']
 let g:ale_fix_on_save = 1
 
@@ -184,7 +185,7 @@ autocmd BufWritePre *.js,*.jsx,*.css,*.scss,*.less Prettier
 inoremap jk <ESC>
 inoremap jj <ESC>
 
-" let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 colorscheme nofrils-dark
 let g:nofrils_strbackgrounds=1
