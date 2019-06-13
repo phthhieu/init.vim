@@ -9,11 +9,10 @@ Plug 'carlitux/deoplete-ternjs'
 
 " Theme + Style
 Plug 'roosta/vim-srcery'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-airline/vim-airline'
 Plug 'ap/vim-css-color'
 Plug 'mhinz/vim-signify'
 Plug 'robertmeta/nofrils'
+Plug 'itchyny/lightline.vim'
 
 Plug 'reasonml-editor/vim-reason-plus'
 Plug 'autozimu/LanguageClient-neovim', {
@@ -189,8 +188,7 @@ let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 colorscheme nofrils-dark
 let g:nofrils_strbackgrounds=1
-" Custom color for string
-hi String ctermfg=79 guifg=#5fd7af
+hi String ctermfg=247 guifg=#9e9e9e
 hi Directory ctermfg=white
 
 " Required for operations modifying multiple buffers like rename.
