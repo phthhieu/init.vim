@@ -30,6 +30,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'alvan/vim-closetag'
 Plug 'phthhieu/vim-test'
+Plug 'jremmen/vim-ripgrep'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -145,6 +146,7 @@ set tabstop=2 " Number of space og a <Tab> character
 set softtabstop=2
 set shiftwidth=2 " Number of spaces use by autoindent
 set lazyredraw
+set regexpengine=1
 set expandtab
 
 "" Searching
