@@ -77,6 +77,7 @@ map <leader>r :NERDTreeFind<cr>
 " Searching
 noremap <leader>f :FZF<CR>
 noremap <leader>a :Ag <CR>
+noremap <leader>o :Buffers <CR>
 nnoremap <silent> <leader>ag :Ag <C-R><C-W><CR>
 
 " Quick saving / edit
@@ -168,17 +169,16 @@ set rnu
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 
 " AleFix
-let g:ale_linters = {'javascript': ['eslint', 'flow']}
-let b:ale_fixers = ['prettier', 'eslint']
-let g:ale_fix_on_save = 1
-
+let g:ale_linters = {'javascript': ['eslint', 'flow'], 'ruby': ['rubocop']}
+let g:ale_fixers = {'javascript': ['eslint', 'prettier'], 'ruby': ['rubocop']}
+" let g:ale_fix_on_save = 0
+"
 " Language client
 nnoremap <silent> gd :call LanguageClient_textDocument_definition()<cr>
 nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<cr>
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 
 " Auto format
-let g:prettier#autoformat = 0
 autocmd BufWritePre * StripWhitespace
 autocmd BufWritePre *.js,*.jsx,*.css,*.scss,*.less Prettier
 
