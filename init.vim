@@ -1,11 +1,12 @@
 call plug#begin('~/.vim/plugged')
 " Essential
 Plug 'sheerun/vim-polyglot'
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'carlitux/deoplete-ternjs'
+Plug 'codeindulgence/vim-tig'
 
 " Theme + Style
 Plug 'roosta/vim-srcery'
@@ -45,7 +46,7 @@ Plug 'galooshi/vim-import-js'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'css', 'json', 'scss'] }
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -83,7 +84,6 @@ nnoremap <silent> <leader>ag :Ag <C-R><C-W><CR>
 " Quick saving / edit
 noremap <leader>w :w<cr>
 noremap <leader>q :q<cr>
-noremap <leader>x :x<cr>
 " Split screen
 noremap <leader>s :vsplit<cr>
 noremap <leader>v :split<cr>
@@ -93,14 +93,14 @@ nnoremap cp :let @* = expand("%")<CR>
 nnoremap cP :let @* = expand("%:p")<CR>
 
 " Git
-noremap <leader>gs :Gstatus<cr>
-noremap <leader>gb :Gblame<cr>
-noremap <leader>gd :Gdiff<cr>
 
-noremap <leader>gw :Gwrite<cr>
-noremap <leader>gc :Gcommit<cr>
 noremap <leader>gu :Gpull<cr>
 noremap <leader>gp :Gpush<cr>
+
+noremap <leader>gs :Tig<cr>
+noremap <leader>gl :Tig!<cr>
+noremap <leader>gs :Tig show<cr>
+noremap <leader>gb :Gblame<cr>
 
 " Easy jump
 map  <leader>j <Plug>(easymotion-bd-w)
@@ -131,9 +131,6 @@ map <Leader>vi :VimuxInspectRunner<CR>
 
 let g:closetag_filenames = '*.js,*.jsx'
 let g:move_key_modifier = 'C'
-
-nmap <leader>e :ALENext<CR>
-nmap <leader>d :ALEPrevious<CR>
 
 let g:slime_target = "tmux"
 let g:slime_default_config = {"socket_name": "default", "target_pane": "{right-of}"}
@@ -186,6 +183,7 @@ autocmd BufWritePre *.js,*.jsx,*.css,*.scss,*.less Prettier
 inoremap jk <ESC>
 inoremap jj <ESC>
 
+" Custom FZF
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 colorscheme nofrils-dark
@@ -240,4 +238,42 @@ function! ToggleSourceSpecFile() abort
   else
     call GoToSpecFile()
   endif
+endfunction
+
+" ReasonML in floating window
+command! ReasonML :call ReasonMLFloatingWindow()
+function! ReasonMLFloatingWindow()
+  :call OpenFloatingWindow()
+
+  terminal cd $HOME/.config/nvim/reasonml && nvim -u playground.vim -O Reason.re Javascript.js
+  startinsert
+  autocmd TermClose * ++once :q
+endfunction
+
+
+function! OpenFloatingWindow()
+  let height = float2nr((&lines - 2) * 0.6)
+  let width = float2nr(&columns * 0.6)
+  let row = float2nr((&lines - height) / 2)
+  let col = float2nr((&columns - width) / 2)
+
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': row,
+        \ 'col': col,
+        \ 'width': width,
+        \ 'height': height
+        \ }
+
+  let buf = nvim_create_buf(v:false, v:true)
+  let win = nvim_open_win(buf, v:true, opts)
+
+  call setwinvar(win, '&winhl', 'Normal:StatusLine')
+  setlocal
+        \ buftype=nofile
+        \ nobuflisted
+        \ bufhidden=hide
+        \ nonumber
+        \ norelativenumber
+        \ signcolumn=no
 endfunction
