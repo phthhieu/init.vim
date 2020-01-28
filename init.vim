@@ -80,6 +80,7 @@ noremap <leader>f :FZF<CR>
 noremap <leader>a :Ag <CR>
 noremap <leader>o :Buffers <CR>
 nnoremap <silent> <leader>ag :Ag <C-R><C-W><CR>
+nnoremap <C-g> :Rg<Cr>
 
 " Quick saving / edit
 noremap <leader>w :w<cr>
@@ -184,7 +185,8 @@ inoremap jk <ESC>
 inoremap jj <ESC>
 
 " Custom FZF
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+" let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+let $FZF_DEFAULT_COMMAND = 'rg --files --no-ignore-vcs --hidden'
 
 colorscheme nofrils-dark
 let g:nofrils_strbackgrounds=1
