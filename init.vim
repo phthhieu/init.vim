@@ -41,8 +41,6 @@ Plug 'benmills/vimux'
 " Plug 'vim-scripts/Decho'
 
 " Coding style
-" Require npm install --global import-js
-Plug 'galooshi/vim-import-js'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'css', 'json', 'scss'] }
@@ -58,6 +56,9 @@ endif
 
 " Send command to tmux
 Plug 'jpalardy/vim-slime'
+
+Plug 'galooshi/vim-import-js'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 
@@ -107,9 +108,6 @@ noremap <leader>gb :Gblame<cr>
 map  <leader>j <Plug>(easymotion-bd-w)
 nmap <leader>j <Plug>(easymotion-overwin-w)
 
-" Import current word
-nmap <leader>i :ImportJSFix<cr>
-
 " Custom nerdtree
 let g:NERDTreeSyntaxDisableDefaultExtensions = 1
 let g:NERDTreeDisableExactMatchHighlight = 1
@@ -118,14 +116,16 @@ let g:NERDTreeSyntaxEnabledExtensions = ['rb', 'js', 'html', 'haml', 'css', 'erb
 let g:NERDTreeLimitedSyntax = 1
 let g:NERDTreeHighlightCursorline = 0
 
+nmap <leader>i :ImportJSFix<cr>
+
 nmap <leader>ts :TestNearest<CR>
 nmap <leader>tt :TestFile<CR>
-nmap <leader>tf :call ToggleSourceSpecFile()<CR>
 
 let test#strategy = "vimux"
+let g:test#javascript#jest#executable = 'yarn test'
+
 let g:VimuxUseNearest = 0
-let g:test#javascript#jest#executable = 'nvm use default && yarn test'
-let g:VimuxOrientation = "h"
+let g:VimuxOrientation = "v"
 map <Leader>vq :VimuxCloseRunner<CR>
 map <Leader>vz :VimuxZoomRunner<CR>
 map <Leader>vi :VimuxInspectRunner<CR>
@@ -169,12 +169,30 @@ let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 " AleFix
 let g:ale_linters = {'javascript': ['eslint', 'flow'], 'ruby': ['rubocop']}
 let g:ale_fixers = {'javascript': ['eslint', 'prettier'], 'ruby': ['rubocop']}
-" let g:ale_fix_on_save = 0
-"
-" Language client
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<cr>
-nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<cr>
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+
+" ==== START COC config
+set nowritebackup
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+" always show signcolumns
+set signcolumn=yes
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+" === END COC config
 
 " Auto format
 autocmd BufWritePre * StripWhitespace
@@ -185,7 +203,6 @@ inoremap jk <ESC>
 inoremap jj <ESC>
 
 " Custom FZF
-" let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 let $FZF_DEFAULT_COMMAND = 'rg --files --no-ignore-vcs --hidden'
 
 colorscheme nofrils-dark
@@ -195,87 +212,3 @@ hi Directory ctermfg=white
 
 " Required for operations modifying multiple buffers like rename.
 set hidden
-
-" Custom Script
-
-function! GoToSourceFile() abort
-  let file = expand("%")
-  let parts = split(file, "/")
-
-  let last = parts[-1]
-  let fileName = split(last, '\.')[0]
-  let extension = split(last, '\.')[2]
-
-  let sourceFile = join(parts[:-3] + [join([fileName, extension], '.')], '/')
-  if filereadable(sourceFile)
-    execute "edit +" . "0" . " " . sourceFile
-    return
-  endif
-
-  echoerr "Source file not found"
-endfunction
-
-function! GoToSpecFile() abort
-  let file = expand("%")
-  let parts = split(file, "/")
-
-  let last = parts[-1]
-  let fileName = split(last, '\.')[0]
-  let extension = split(last, '\.')[1]
-
-  let specFile = join(parts[:-2] + ['__tests__', join([fileName, 'spec', extension], '.')], '/')
-  if filereadable(specFile)
-    execute "edit +" . "0" . " " . specFile
-    return
-  endif
-
-  echoerr "Test file not found"
-endfunction
-
-
-function! ToggleSourceSpecFile() abort
-  let file = expand("%")
-  if file =~ 'spec'
-    call GoToSourceFile()
-  else
-    call GoToSpecFile()
-  endif
-endfunction
-
-" ReasonML in floating window
-command! ReasonML :call ReasonMLFloatingWindow()
-function! ReasonMLFloatingWindow()
-  :call OpenFloatingWindow()
-
-  terminal cd $HOME/.config/nvim/reasonml && nvim -u playground.vim -O Reason.re Javascript.js
-  startinsert
-  autocmd TermClose * ++once :q
-endfunction
-
-
-function! OpenFloatingWindow()
-  let height = float2nr((&lines - 2) * 0.6)
-  let width = float2nr(&columns * 0.6)
-  let row = float2nr((&lines - height) / 2)
-  let col = float2nr((&columns - width) / 2)
-
-  let opts = {
-        \ 'relative': 'editor',
-        \ 'row': row,
-        \ 'col': col,
-        \ 'width': width,
-        \ 'height': height
-        \ }
-
-  let buf = nvim_create_buf(v:false, v:true)
-  let win = nvim_open_win(buf, v:true, opts)
-
-  call setwinvar(win, '&winhl', 'Normal:StatusLine')
-  setlocal
-        \ buftype=nofile
-        \ nobuflisted
-        \ bufhidden=hide
-        \ nonumber
-        \ norelativenumber
-        \ signcolumn=no
-endfunction
