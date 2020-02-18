@@ -12,7 +12,7 @@ Plug 'codeindulgence/vim-tig'
 Plug 'roosta/vim-srcery'
 Plug 'ap/vim-css-color'
 Plug 'mhinz/vim-signify'
-Plug 'robertmeta/nofrils'
+Plug 'andreypopp/vim-colors-plain'
 Plug 'itchyny/lightline.vim'
 
 Plug 'reasonml-editor/vim-reason-plus'
@@ -205,10 +205,8 @@ inoremap jj <ESC>
 " Custom FZF
 let $FZF_DEFAULT_COMMAND = 'rg --files --no-ignore-vcs --hidden'
 
-colorscheme nofrils-dark
-let g:nofrils_strbackgrounds=1
-hi String ctermfg=247 guifg=#9e9e9e
-hi Directory ctermfg=white
+colorscheme plain
+set background=dark
 
 " Required for operations modifying multiple buffers like rename.
 set hidden
