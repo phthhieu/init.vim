@@ -5,21 +5,16 @@ Plug 'dense-analysis/ale'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
-Plug 'carlitux/deoplete-ternjs'
 Plug 'codeindulgence/vim-tig'
 
 " Theme + Style
 Plug 'roosta/vim-srcery'
 Plug 'ap/vim-css-color'
 Plug 'mhinz/vim-signify'
-Plug 'andreypopp/vim-colors-plain'
+Plug 'phthhieu/vim-colors-plain'
 Plug 'itchyny/lightline.vim'
 
 Plug 'reasonml-editor/vim-reason-plus'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
 
 " Support
 Plug 'matze/vim-move'
@@ -46,14 +41,6 @@ Plug 'prettier/vim-prettier', {
   \ 'for': ['javascript', 'css', 'json', 'scss'] }
 " Plug 'jiangmiao/auto-pairs'
 
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-
 " Send command to tmux
 Plug 'jpalardy/vim-slime'
 
@@ -61,12 +48,6 @@ Plug 'galooshi/vim-import-js'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
-
-let g:LanguageClient_serverCommands = {
-    \ 'reason': ['~/.config/nvim/reason-language-server.exe'],
-    \ }
-
-let g:deoplete#enable_at_startup = 1
 
 nnoremap <Esc> :noh<CR><Esc>
 "========================================================
@@ -183,6 +164,9 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+nnoremap <silent> gf :Format<cr>
+
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
@@ -192,6 +176,8 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+command! -nargs=0 Format :call CocAction('format')
+
 " === END COC config
 
 " Auto format
